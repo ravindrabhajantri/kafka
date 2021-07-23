@@ -33,20 +33,20 @@ public class CreateTopic {
 		topicConfig.put(TopicConfig.MIN_IN_SYNC_REPLICAS_CONFIG, "2");
 		topicConfig.put(TopicConfig.RETENTION_MS_CONFIG, "-1");
 
-		AdminClient adminClient = AdminClient.create(kafkaProperties);
+		AdminClient kafkaAdministrationClient = AdminClient.create(kafkaProperties);
 
 		final NewTopic newTopic = new NewTopic(TOPIC_NAME, TOPIC_PARTITION, TOPIC_REPLICATION);
 		newTopic.configs(topicConfig);
 
-		List<NewTopic> topics = new ArrayList<NewTopic>();
-		topics.add(newTopic);
+		List<NewTopic> newTopicsToCreate = new ArrayList<NewTopic>();
+		newTopicsToCreate.add(newTopic);
 
-		ListTopicsResult listTopics = adminClient.listTopics();
+		ListTopicsResult existingListOfTopics = kafkaAdministrationClient.listTopics();
 		Set<String> existingTopics;
 		try {
-			existingTopics = listTopics.names().get();
+			existingTopics = existingListOfTopics.names().get();
 			if (!existingTopics.contains(TOPIC_NAME)) {
-				adminClient.createTopics(topics);
+				kafkaAdministrationClient.createTopics(newTopicsToCreate);
 				LOGGER.info("Created topic with  name: {}, partitions: {}, replication: {}", TOPIC_NAME,
 						TOPIC_PARTITION, TOPIC_REPLICATION);
 			} else {
