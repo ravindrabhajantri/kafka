@@ -3,7 +3,7 @@ This project implements Kafka Topic creation programmatically.
 
 ## Setup
 
-Project is a standalone program:
+Project is a stand-alone program:
 * Requires Download, Compile and Run.
 * Requires a running Kafka instance. Run docker-compose.yaml attached here to run get a Kafka Instance.
 

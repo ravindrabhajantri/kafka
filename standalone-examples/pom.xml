@@ -20,5 +20,6 @@
 
   <modules>
   	<module>create-topic</module>
+	<module>string-consumer</module>
   </modules>
 </project>
