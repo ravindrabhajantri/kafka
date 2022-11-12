@@ -1,9 +1,5 @@
 version: '3.5'
 
-#networks:
-#  default:
-#    name: kafka-net
-
 services:
 
   zookeeper:
