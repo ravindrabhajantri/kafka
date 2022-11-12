@@ -3,6 +3,5 @@
 Refer to following folders for more information.
 
 
-* standalone-examples
-* spring-examples
-* docker-spring-examples
+* kafka-java-examples
+* kafka-springboot-examples
