@@ -14,6 +14,8 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static java.util.Arrays.*;
+
 public class StringConsumer implements Runnable {
 
 	private static final Logger log = LoggerFactory.getLogger(StringConsumer.class);
@@ -24,7 +26,7 @@ public class StringConsumer implements Runnable {
 	public void run() {
 
 		Properties consumerProperties = new Properties();
-		consumerProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:29092");
+		consumerProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
 		consumerProperties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
 				StringDeserializer.class.getName());
 		consumerProperties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
@@ -33,7 +35,7 @@ public class StringConsumer implements Runnable {
 		consumerProperties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 
 		consumer = new KafkaConsumer<>(consumerProperties);
-		consumer.subscribe(Arrays.asList(STRING_TOPIC_NAME));
+		consumer.subscribe(asList(STRING_TOPIC_NAME));
 		log.info("{} Topic subscription completed", STRING_TOPIC_NAME);
 
 		try {
