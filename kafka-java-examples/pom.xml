@@ -20,6 +20,6 @@
 
   <modules>
   	<module>create-topic</module>
-	<module>string-producer-consumer</module>
+	<module>producer-consumer-examples</module>
   </modules>
 </project>

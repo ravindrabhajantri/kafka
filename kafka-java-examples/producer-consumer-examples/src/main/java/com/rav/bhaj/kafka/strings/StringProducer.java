@@ -10,9 +10,9 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class StringPrdocer {
+public class StringProducer {
 
-	private static final Logger log = LoggerFactory.getLogger(StringPrdocer.class);
+	private static final Logger log = LoggerFactory.getLogger(StringProducer.class);
 	private static final String STRING_TOPIC_NAME = "STRING_TOPIC";
 	private Producer<String, String> producer;
 

@@ -12,8 +12,8 @@ public class TestRunner {
 		Thread studentNameConsumerThread = new Thread(new StringConsumer());
 		studentNameConsumerThread.start();
 
-		LOGGER.info("Calling produer to send student names");
-		StringPrdocer studentNamesProducer = new StringPrdocer();
+		LOGGER.info("Calling producer to send student names");
+		StringProducer studentNamesProducer = new StringProducer();
 		studentNamesProducer.produce("Rama");
 		Thread.sleep(100);
 		studentNamesProducer.produce("Sita");

@@ -16,4 +16,4 @@ This project implements Kafka Producers and Consumers. The implementations are g
 ## Sample Producers and Consumers implemented
 
 * Strings: Producers and Consumers exchange string messages
-
+* POJO: Producers and Consumers exchange simple plain Java objects
