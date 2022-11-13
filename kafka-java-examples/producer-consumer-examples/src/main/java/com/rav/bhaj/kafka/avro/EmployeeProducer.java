@@ -1,6 +1,6 @@
 package com.rav.bhaj.kafka.avro;
 
-import com.rav.bhaj.kafka.objects.model.Employee;
+import com.rav.bhaj.kafka.objects.model.Student;
 import com.rav.bhaj.kafka.objects.serializers.ObjectToBytesSerializer;
 import com.rav.bhaj.kafka.strings.StringProducer;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -16,7 +16,7 @@ import java.util.Properties;
 public class EmployeeProducer {
     private static final Logger log = LoggerFactory.getLogger(StringProducer.class);
     private static final String EMPLOYEE_TOPIC_NAME = "EMPLOYEE_TOPIC";
-    private Producer<String, Employee> producer;
+    private Producer<String, Student> producer;
 
     public void produce(int id, String name, String city) throws InterruptedException {
         // Producer Configurations
@@ -30,12 +30,12 @@ public class EmployeeProducer {
         producerConfigurations.setProperty(ProducerConfig.LINGER_MS_CONFIG, "1");
 
         // Kafka Producer
-        producer = new KafkaProducer<String, Employee>(producerConfigurations);
+        producer = new KafkaProducer<String, Student>(producerConfigurations);
 
         // Create employee object
-        Employee employee = new Employee(id, name, city);
+        Student employee = new Student(id, name, city);
         // Kafka producer Record
-        ProducerRecord<String, Employee> nameToInsert = new ProducerRecord<String, Employee>(EMPLOYEE_TOPIC_NAME, employee);
+        ProducerRecord<String, Student> nameToInsert = new ProducerRecord<String, Student>(EMPLOYEE_TOPIC_NAME, employee);
 
         // Kafka topic send
         producer.send(nameToInsert);

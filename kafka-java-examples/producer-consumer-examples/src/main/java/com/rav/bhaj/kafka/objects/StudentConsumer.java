@@ -1,6 +1,6 @@
 package com.rav.bhaj.kafka.objects;
 
-import com.rav.bhaj.kafka.objects.model.Employee;
+import com.rav.bhaj.kafka.objects.model.Student;
 import com.rav.bhaj.kafka.objects.serializers.BytesToObjectDeserializer;
 import com.rav.bhaj.kafka.strings.StringConsumer;
 import org.apache.kafka.clients.consumer.*;
@@ -19,7 +19,7 @@ public class StudentConsumer implements Runnable{
     private static final Logger log = LoggerFactory.getLogger(StringConsumer.class);
     private static final boolean KEEP_ON_RUNNING = true;
     private static final String STUDENT_TOPIC_NAME = "STUDENT_TOPIC";
-    private Consumer<String, Employee> consumer;
+    private Consumer<String, Student> consumer;
 
     public void run() {
 
@@ -32,14 +32,14 @@ public class StudentConsumer implements Runnable{
         consumerProperties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "string-consumers");
         consumerProperties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 
-        consumer = new KafkaConsumer<String, Employee>(consumerProperties);
+        consumer = new KafkaConsumer<String, Student>(consumerProperties);
         consumer.subscribe(asList(STUDENT_TOPIC_NAME));
         log.info("{} Topic subscription completed", STUDENT_TOPIC_NAME);
 
         try {
             while (KEEP_ON_RUNNING) {
-                ConsumerRecords<String, Employee> studentNames = consumer.poll(Duration.ofMillis(100));
-                for (ConsumerRecord<String, Employee> studentRecord : studentNames) {
+                ConsumerRecords<String, Student> studentNames = consumer.poll(Duration.ofMillis(100));
+                for (ConsumerRecord<String, Student> studentRecord : studentNames) {
                     log.info("Received record from topic => {} with values:\n", studentRecord.topic());
                     log.info("key => {}\n", studentRecord.key());
                     log.info("AORMessage received => {}\n", studentRecord.value().getStudentName());
