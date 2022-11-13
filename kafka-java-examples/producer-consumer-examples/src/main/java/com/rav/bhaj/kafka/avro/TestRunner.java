@@ -16,12 +16,11 @@ public class TestRunner {
 
         LOGGER.info("Calling producer to send student objects");
         EmployeeProducer employeeProducer = new EmployeeProducer();
-        employeeProducer.produce(123, "Rama","kafka");
+        employeeProducer.produce(123, "Rama","beluru");
         Thread.sleep(100);
-        employeeProducer.produce(234, "Sita", "spark");
+        employeeProducer.produce(234, "Sita", "halebeedu");
         Thread.sleep(100);
-        employeeProducer.produce(345, "Lakshmana", "flink");
+        employeeProducer.produce(345, "Lakshmana", "hampi");
         Thread.sleep(100);
-
     }
 }
