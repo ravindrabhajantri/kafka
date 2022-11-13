@@ -1,5 +1,6 @@
 package com.rav.bhaj.kafka.avro;
 
+import com.rav.bhaj.kafka.avro.serializers.AvroToBytesSerializer;
 import com.rav.bhaj.kafka.objects.model.Student;
 import com.rav.bhaj.kafka.objects.serializers.ObjectToBytesSerializer;
 import com.rav.bhaj.kafka.strings.StringProducer;
@@ -25,7 +26,7 @@ public class EmployeeProducer {
         producerConfigurations.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class.getName());
         producerConfigurations.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                ObjectToBytesSerializer.class.getName());
+                AvroToBytesSerializer.class.getName());
         producerConfigurations.setProperty(ProducerConfig.ACKS_CONFIG, "all");
         producerConfigurations.setProperty(ProducerConfig.LINGER_MS_CONFIG, "1");
 

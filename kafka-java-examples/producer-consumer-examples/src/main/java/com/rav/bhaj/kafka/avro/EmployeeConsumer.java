@@ -1,6 +1,7 @@
 package com.rav.bhaj.kafka.avro;
 
 import com.rav.bhaj.kafka.avro.model.Employee;
+import com.rav.bhaj.kafka.avro.serializers.ByteToAvroDeserializer;
 import com.rav.bhaj.kafka.objects.serializers.BytesToObjectDeserializer;
 import com.rav.bhaj.kafka.strings.StringConsumer;
 import org.apache.kafka.clients.consumer.*;
@@ -27,7 +28,7 @@ public class EmployeeConsumer implements Runnable {
         consumerProperties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class.getName());
         consumerProperties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                BytesToObjectDeserializer.class.getName());
+                ByteToAvroDeserializer.class.getName());
         consumerProperties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "string-consumers");
         consumerProperties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 
