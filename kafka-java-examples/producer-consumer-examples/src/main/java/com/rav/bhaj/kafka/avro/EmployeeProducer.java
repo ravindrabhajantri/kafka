@@ -1,4 +1,4 @@
-package com.rav.bhaj.kafka.objects;
+package com.rav.bhaj.kafka.avro;
 
 import com.rav.bhaj.kafka.objects.model.Employee;
 import com.rav.bhaj.kafka.objects.serializers.ObjectToBytesSerializer;
@@ -13,12 +13,12 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-public class StudentProducer {
+public class EmployeeProducer {
     private static final Logger log = LoggerFactory.getLogger(StringProducer.class);
-    private static final String STUDENT_TOPIC_NAME = "STUDENT_TOPIC";
+    private static final String EMPLOYEE_TOPIC_NAME = "EMPLOYEE_TOPIC";
     private Producer<String, Employee> producer;
 
-    public void produce(int id, String name, String subject) throws InterruptedException {
+    public void produce(int id, String name, String city) throws InterruptedException {
         // Producer Configurations
         Properties producerConfigurations = new Properties();
         producerConfigurations.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
@@ -32,14 +32,14 @@ public class StudentProducer {
         // Kafka Producer
         producer = new KafkaProducer<String, Employee>(producerConfigurations);
 
-        // Create student object
-        Employee student = new Employee(id, name, subject);
+        // Create employee object
+        Employee employee = new Employee(id, name, city);
         // Kafka producer Record
-        ProducerRecord<String, Employee> nameToInsert = new ProducerRecord<String, Employee>(STUDENT_TOPIC_NAME, student);
+        ProducerRecord<String, Employee> nameToInsert = new ProducerRecord<String, Employee>(EMPLOYEE_TOPIC_NAME, employee);
 
         // Kafka topic send
         producer.send(nameToInsert);
-        log.info("Name {} sent to topic {}.", nameToInsert.value(), STUDENT_TOPIC_NAME);
+        log.info("Name {} sent to topic {}.", nameToInsert.value(), EMPLOYEE_TOPIC_NAME);
 
     }
 }

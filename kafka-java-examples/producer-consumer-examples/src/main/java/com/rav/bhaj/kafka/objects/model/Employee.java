@@ -1,11 +1,11 @@
 package com.rav.bhaj.kafka.objects.model;
 
-public class Student implements java.io.Serializable {
+public class Employee implements java.io.Serializable {
     private int studentId;
     private String studentName;
     private String studentSubject;
 
-    public Student(int studentId, String studentName, String studentSubject) {
+    public Employee(int studentId, String studentName, String studentSubject) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.studentSubject = studentSubject;

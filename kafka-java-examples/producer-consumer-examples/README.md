@@ -17,3 +17,4 @@ This project implements Kafka Producers and Consumers. The implementations are g
 
 * Strings: Producers and Consumers exchange string messages
 * POJO: Producers and Consumers exchange simple plain Java objects
+* AVRO: Producers and Consumers exchange objects in AVRO format
