@@ -24,22 +24,24 @@ public class EmployeeConsumer implements Runnable {
     public void run() {
 
         Properties consumerProperties = new Properties();
-        consumerProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
+        consumerProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         consumerProperties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class.getName());
         consumerProperties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
                 ByteToAvroDeserializer.class.getName());
-        consumerProperties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "string-consumers");
+        consumerProperties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "avro-consumers");
         consumerProperties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 
-        consumer = new KafkaConsumer<String, Employee>(consumerProperties);
+        //consumer = new KafkaConsumer<String, Employee>(consumerProperties);
+        //Explicitly passing the deserializers if you have a generic class of serializers
+        consumer = new KafkaConsumer<String, Employee>(consumerProperties, new StringDeserializer(), new ByteToAvroDeserializer<>(Employee.class));
         consumer.subscribe(asList(EMPLOYEE_TOPIC_NAME));
         log.info("{} Topic subscription completed", EMPLOYEE_TOPIC_NAME);
 
         try {
             while (KEEP_ON_RUNNING) {
-                ConsumerRecords<String, Employee> employeeName = consumer.poll(Duration.ofMillis(100));
-                for (ConsumerRecord<String, Employee> employeeRecord : employeeName) {
+                ConsumerRecords<String, Employee> employee= consumer.poll(Duration.ofMillis(100));
+                for (ConsumerRecord<String, Employee> employeeRecord : employee) {
                     log.info("Received record from topic => {} with values:\n", employeeRecord.topic());
                     log.info("key => {}\n", employeeRecord.key());
                     log.info("AORMessage received => {}\n", employeeRecord.value().getEmployeeName());

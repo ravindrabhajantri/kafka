@@ -24,12 +24,12 @@ public class StudentConsumer implements Runnable{
     public void run() {
 
         Properties consumerProperties = new Properties();
-        consumerProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
+        consumerProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         consumerProperties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class.getName());
         consumerProperties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
                 BytesToObjectDeserializer.class.getName());
-        consumerProperties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "string-consumers");
+        consumerProperties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "object-consumers");
         consumerProperties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 
         consumer = new KafkaConsumer<String, Student>(consumerProperties);

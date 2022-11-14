@@ -1,5 +1,6 @@
 package com.rav.bhaj.kafka.avro;
 
+import com.rav.bhaj.kafka.avro.model.Employee;
 import com.rav.bhaj.kafka.avro.serializers.AvroToBytesSerializer;
 import com.rav.bhaj.kafka.objects.model.Student;
 import com.rav.bhaj.kafka.objects.serializers.ObjectToBytesSerializer;
@@ -17,12 +18,12 @@ import java.util.Properties;
 public class EmployeeProducer {
     private static final Logger log = LoggerFactory.getLogger(StringProducer.class);
     private static final String EMPLOYEE_TOPIC_NAME = "EMPLOYEE_TOPIC";
-    private Producer<String, Student> producer;
+    private Producer<String, Employee> producer;
 
     public void produce(int id, String name, String city) throws InterruptedException {
         // Producer Configurations
         Properties producerConfigurations = new Properties();
-        producerConfigurations.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
+        producerConfigurations.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         producerConfigurations.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class.getName());
         producerConfigurations.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
@@ -31,15 +32,19 @@ public class EmployeeProducer {
         producerConfigurations.setProperty(ProducerConfig.LINGER_MS_CONFIG, "1");
 
         // Kafka Producer
-        producer = new KafkaProducer<String, Student>(producerConfigurations);
+        producer = new KafkaProducer<String, Employee>(producerConfigurations);
 
         // Create employee object
-        Student employee = new Student(id, name, city);
+        Employee employee = new Employee();
+        employee.setEmployeeId(id);
+        employee.setEmployeeName(name);
+        employee.setEmployeeCity(city);
         // Kafka producer Record
-        ProducerRecord<String, Student> nameToInsert = new ProducerRecord<String, Student>(EMPLOYEE_TOPIC_NAME, employee);
+        ProducerRecord<String, Employee> nameToInsert = new ProducerRecord<String, Employee>(EMPLOYEE_TOPIC_NAME, employee);
 
         // Kafka topic send
         producer.send(nameToInsert);
+        producer.flush();
         log.info("Name {} sent to topic {}.", nameToInsert.value(), EMPLOYEE_TOPIC_NAME);
 
     }
